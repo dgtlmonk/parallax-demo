@@ -1,0 +1,210 @@
+/*!
+ * madAjaxify plugin loads  pages via AJAX.
+ * 
+ * NOTE: This must always be the last plugin in this file.
+ * 
+ * TODO: Minify on prod.
+ */
+(function ($, window, document, undefined) {
+	var
+		pluginName = 'madAjaxify',
+		History    = window.History,
+		rootUrl    = History.getRootUrl(),
+		defaults   = {
+			animationSpeed: 1000
+		},
+		$body, $container;
+
+	// madAjaxify
+	function madAjaxify(element, options) {
+
+		// Requires History.js plugin <https://github.com/balupton/history.js>
+		if (History === undefined || !History.enabled) {
+			return false;
+		}
+
+		this.element = element;
+		this.options = $.extend({}, defaults, options);
+
+		this._defaults = defaults;
+		this._name     = pluginName;
+
+		this.init();
+	}
+
+	// prototype
+	madAjaxify.prototype = {
+		init: function() {
+
+			var
+				$this = this;
+
+			$body = $(document.body);
+			$container = $('#container');
+
+			$body.ajaxify();
+
+			$(window).bind('statechange', function() {
+				
+				var
+					State  = History.getState(),
+					url = State.url,
+					relativeUrl = url.replace(rootUrl, '');
+
+				// call exit animation for the current page
+				MADWELL2.exec($body.data('controller'), 'exit', {}, function(){
+
+					// fetch the page
+					$.ajax({
+						url: url,
+
+						success: function(data, textStatus, jqXHR) {
+							var
+								$data    = $($this.parseHtml(data)),
+								$newBody = $data.find('[data-element=body]'),
+								$scripts;
+
+							// get the scripts
+							$scripts = $data.find('[data-element=script]');
+							if ($scripts.length) {
+								$scripts.detach();
+							}
+
+							// replace <BODY> attributes
+							$body
+								.attr({
+									'id': $newBody.attr('id'),
+									'class': $newBody.attr('class'),
+									'style': $newBody.attr('style'),
+									'data-controller': $newBody.data('controller'),
+									'data-action': $newBody.data('action')
+								})
+								.data({
+									controller: $newBody.data('controller'),
+									action: $newBody.data('action')
+								})
+							;
+
+							// set active menu
+							$('#menu li').removeClass('active');
+							$('#menu-'+$('body').data('controller')).addClass('active');
+
+							// replace <TITLE>
+							$('title').html($data.find('[data-element=title]').text());
+
+							// insert content
+							var $newContent = $newBody;
+
+							$newContent.find('#loading, #loading-notice, #header').remove();
+							$newContent.html($newContent.html().replace(/<!--.*-->/g, ''));
+
+							$container.html($newContent.find('#container').html()).ajaxify();
+							
+							// inform GA
+							if (typeof _gaq !== undefined) {
+								_gaq.push(['_trackPageview', relativeUrl]);
+							}
+
+							$body.ScrollTo({
+								callback: function() {
+									MADWELL2.exec($newBody.data('controller'));
+									MADWELL2.exec($newBody.data('controller'), $newBody.data('action'), {}, function(){
+										if (typeof State.data == "object" && undefined !== State.data.anchor)
+										{
+											var anchor = State.data.anchor;
+											History.pushState(null,State.title,State.url + '#' + anchor);
+
+											setTimeout(function(){
+												$('#' + anchor + 'Scroll').ScrollTo(1000);
+											}, 400);
+										}
+									});
+								}
+							});
+						},
+
+						error: function(jqXHR, textStatus, errorThrown) {
+							alert('Error 404: File Not Found!');
+							window.history.go(-1);
+							return false;
+						}
+					}); // $.ajax()
+				}); // MADWELL2.exec(controller, exit)
+			}); // window statechange
+		}, // .init()
+
+		parseHtml: function (html) {
+			var result = String(html)
+				.replace(/<\!DOCTYPE[^>]*>/i, '')
+				.replace(/<(html|head|body|title|meta|script)([\s\>])/gi,'<div data-element="$1"$2')
+				.replace(/<\/(html|head|body|title|meta|script)\>/gi,'</div>')
+			;
+
+			return result;
+		} // .parseHtml()
+
+	} // madAjaxify.prototype
+
+	// chain
+	$.fn[pluginName] = function (options) {
+		return this.each(function() {
+			if (!$.data(this, 'plugin_' + pluginName)) {
+				$.data(this, 'plugin_' + pluginName, new madAjaxify(this, options));
+			}
+		});
+	}
+
+	// ajaxify
+	$.fn.ajaxify = function() {
+		var $this = $(this);
+
+		$this.find('a:internal:not(.no-ajaxy)').bind('click', function(event) {
+			var
+				$this = $(this),
+				url = $this.attr('href'),
+				title = $this.attr('title') || null;
+
+			if (event.which == 2 || event.metaKey) {
+				return true;
+			}
+
+			var idx = url.indexOf("#"), anchor = (idx != -1) ? url.substring(idx+1) : "";
+			if (anchor.length > 0)
+			{
+				var data = {anchor:anchor};
+				url = url.substring(0, idx);
+			} else {
+				var data = null;
+			}
+
+			// Is this a new page, or just an anchor on the same page?
+			if (data && url == location.pathname)
+			{
+				var State = History.getState();
+				History.pushState(null,State.title,State.url + '#' + anchor);
+
+				$('#' + anchor + 'Scroll').ScrollTo(1000);
+			} else {
+				History.pushState(data, title, url);
+				event.preventDefault();
+			}
+
+			return false;
+		});
+
+		return $this;
+	};
+
+	// :internal selector
+	$.expr[':'].internal = function(obj, index, meta, stack){
+		var
+			$this = $(obj),
+			url = $this.attr('href')||'',
+			isInternalLink;
+
+		isInternalLink = url.substring(0, rootUrl.length) === rootUrl || url.indexOf(':') === -1;
+
+		return isInternalLink;
+	};
+
+})(jQuery, window, document);

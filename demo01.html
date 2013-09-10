@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Play">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Titillium+Web">
+
+<style media="screen">
+
+.chromeframe { margin: 0.2em 0; background: #ccc; color: black; padding: 0.2em 0; }
+
+body {
+    padding:0;
+    margin:0;
+    height:2200px;
+}
+
+p.info {
+    float: left;
+    font-size: 16px;
+    font-weight: 100;
+    font-family: 'Titillium Web', serif;
+    color:inherit !important;
+}
+
+.parallax-section {
+    position: relative;
+    min-height: 700px;
+    width:100%;
+    margin: 0;
+    padding: 0;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: -9999in -9999in; /* initially hide the backgrounds */
+}
+
+ #intro-invert {
+        z-index: 100;
+        background-image:
+        url(i/intro-ds.jpg);
+
+    }
+
+#intro {
+        z-index: 200;
+        background-image: url(i/intro-invert.jpg);
+       background-color: #000;
+}
+
+
+#feature-1 {
+        z-index: 102;
+        background-image:
+                url(i/big-e2.png),
+                url(i/mid-e.png),
+                url(i/feature-1-eyewear.png),
+                url(i/small-e.png);
+        height:1200px;
+    }
+
+#feature-2 {
+        z-index: 103;
+        background-image:
+                    url(i/feature-2-reboot.jpg);
+
+        background-color: #000;
+        height:1200px !important;
+
+}
+
+#feature-3 {
+        z-index: 104;
+        background-image:
+                       /* url(i/logo-tide.png), */
+                        url(i/feature-3-tide.1.jpg);
+
+        background-color: #fff;
+        height:900px;
+    }
+
+
+.parallax-banner {
+    top: 0px; /* defined here for smoother animation */
+    width: 100%;
+    line-height: 52px;
+    cursor: pointer;
+    z-index: 20;
+}
+
+
+.parallax-banner-inner {
+    position: relative;
+    width: 980px;
+    margin: 0 auto;
+    height:50px;
+}
+
+.parallax-head,
+.parallax-info,
+.parallax-more, .parallax-more:visited {
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    -webkit-transition:all 0.2s ease-in-out;
+   -moz-transition:all 0.2s ease-in-out;
+   -o-transition:all 0.2s ease-in-out;
+   -ms-transition:all 0.2s ease-in-out;
+   transition:all 0.2s ease-in-out;
+   color:inherit !important;
+}
+
+.parallax-head {
+    float: left;
+    padding: 0 1em;
+    font-size: 30px;
+    font-weight: 700;
+    font-family: 'Play', serif;
+
+}
+
+
+.parallax-info {
+    float: left;
+    font-size: 18px;
+    font-weight: 100;
+    font-family: 'Roboto', serif;
+    padding-right: .5em;
+}
+
+
+.parallax-more {
+    display: block;
+    float: right;
+    font-weight: 100;
+    font-size: 16px;
+    text-decoration: none;
+    background: none no-repeat 90% 50%;
+    font-family: 'Play', serif;
+    padding: 0 30px 0 10px;
+}
+
+
+
+.parallax-banner:hover .parallax-head,
+.parallax-banner:hover .parallax-info,
+.parallax-banner:hover .parallax-more {
+   color: #fff !important;
+
+}
+
+.parallax-banner:hover .parallax-more {
+    background: url(i/white_arrow.png) no-repeat 95% 50%;
+    background-color: #000;
+}
+
+
+
+#feature-1 .parallax-banner-inner{
+    background-color: #7e8084;
+    width:100%;
+    color:#c1c3c8;
+    text-shadow: 0px 0px 7px rgba(192, 187, 187, 0.75);
+    border-bottom:1px solid #e4e4e4;
+
+}
+
+
+
+#feature-2 .parallax-banner-inner {
+    background-color: #000;
+    width:100%;
+    text-shadow: 0px 0px 7px rgba(192, 187, 187, 0.75);
+    color: #57abc3;
+    border-bottom:1px solid #28292d;
+}
+
+#feature-3 .parallax-banner-inner {
+    background-color: #ff343e;
+    width:100%;
+    text-shadow: 0px 0px 7px rgba(192, 187, 187, 0.75);
+    color: #000;
+    border-bottom:1px solid #b6b0ab;
+
+}
+
+#container { padding-top: 0 !important; }
+
+#footer {
+    width: 100%;
+    height: 350px;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    background-color: #fff;
+    z-index: 99999;
+    color: #000;
+    font-size: 13px;
+    font-weight: 300;
+    font-family: 'Titillium Web', serif;
+}
+
+
+ul#footer_links {
+    display: block;
+    padding-left: 0;
+
+}
+
+ul#footer_links li { display: inline-block; }
+
+#footer_links a {
+    text-decoration: none;
+    color: inherit;
+    padding: .2em 1em;
+}
+#footer_links a:hover {
+    color:#704533;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+#nav_footer ul li {
+    display: inline;
+
+}
+
+#feature-2-menu {
+    right: 5%;
+}
+
+#feature-3-menu {
+    left: 5%;
+}
+
+
+.edgeBtn {
+	-moz-box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #eb870e), color-stop(1, #f2ad5e) );
+	background:-moz-linear-gradient( center top, #eb870e 5%, #f2ad5e 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eb870e', endColorstr='#f2ad5e');
+	background-color:#eb870e;
+	-webkit-border-top-left-radius:8px;
+	-moz-border-radius-topleft:8px;
+	border-top-left-radius:8px;
+	-webkit-border-top-right-radius:8px;
+	-moz-border-radius-topright:8px;
+	border-top-right-radius:8px;
+	-webkit-border-bottom-right-radius:8px;
+	-moz-border-radius-bottomright:8px;
+	border-bottom-right-radius:8px;
+	-webkit-border-bottom-left-radius:8px;
+	-moz-border-radius-bottomleft:8px;
+	border-bottom-left-radius:8px;
+	text-indent:0;
+	border:1px solid #eeb44f;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	height:49px;
+	line-height:49px;
+	width:177px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #cc9f52;
+}
+.edgeBtn:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f2ad5e), color-stop(1, #eb870e) );
+	background:-moz-linear-gradient( center top, #f2ad5e 5%, #eb870e 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f2ad5e', endColorstr='#eb870e');
+	background-color:#f2ad5e;
+}.edgeBtn:active {
+	position:relative;
+	top:1px;
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen
+and (min-width : 321px) {
+/* Styles */
+
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen
+and (max-width : 320px) {
+/* Styles */
+
+
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px) {
+/* Styles */
+}
+
+</style>
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="js/modernizr-2.5.3.min.js"></script>
+<script src="js/plugins.js"></script>
+<script>window.jQuery || document.write('<script src="/js/jquery-1.7.2.min.js"><\/script>')</script>
+</head>
+<body>
+<div id="container" style="opacity: 1; display: block;">
+    <div id="intro-invert" class="parallax-section"></div>
+    <div id="intro" class="parallax-section"></div>
+
+    <div id='feature-1' class="parallax-section">
+        <div class="parallax-banner">
+            <div class="parallax-banner-inner">
+                 <h1 class="parallax-head" data-long-name="EDGE AQUA" data-short-name="EDGE AQUA">EDGE AQUA</h1>
+                <h2 class="parallax-info">知らず知らず</h2>
+                <a href="#" class="parallax-more">see details</a>
+            </div>
+        </div>
+    </div>
+
+     <div id='feature-2' class="parallax-section">
+        <div class="parallax-banner" >
+            <div class="parallax-banner-inner">
+                 <h1 class="parallax-head" data-long-name="EDGE REBOOT" data-short-name="EDGE REBOOT">EDGE REBOOT</h1>
+                <h2 class="parallax-info">知らず知らず</h2>
+                <a href="#" class="parallax-more">see details</a>
+            </div>
+        </div>
+        <div style='width:100%; text-align: right; right: 20px; color:#4ea4bb; line-height: 1em; position:relative;  z-index:9; bottom:0'
+                             data-2000-top="display:none;"
+                             data-500-top="display:block; opacity: 0; bottom: 50px;"
+                             data-300-top="display:block; bottom: 50px; opacity: 0;"
+                             data-150-top="display:block; bottom: 20px; opacity: 1; position:fixed; z-index:9;"
+                             data--600-top="opacity:1;"
+                             data--700-top="opacity:0">
+                    <img src="i/logo-reboot.png">
+         </div>
+
+         <div id='feature-2-menu' style="position: relative; bottom:-100px;"
+                            data-2000-top="display:none;"
+                            data-500-top="display:block; opacity: 0;  bottom: 120px;"
+                            data-300-top="display:block; opacity: 1;   bottom: 160px;"
+                            data-200-top="display:block;  bottom: 220px; opacity: 1; position:fixed; z-index:9;"
+                            data--400-top="opacity:1; bottom: 260px;"
+                            data--700-top="opacity:0"
+                 >
+            <img src="i/feature-2-menu.png">
+         </div>
+
+
+    </div>
+
+    <div id='feature-3' class="parallax-section">
+        <div class="parallax-banner">
+            <div class="parallax-banner-inner">
+                 <h1 class="parallax-head" data-long-name="EDGE TIDE" data-short-name="EDGE TIDE">EDGE TIDE</h1>
+                 <h2 class="parallax-info">知らず知らず</h2>
+                <a href="#" class="parallax-more">see details</a>
+            </div>
+        </div>
+
+        <div style='width:100%; text-align: right; right: 20px; color:#4ea4bb; line-height: 1em; position:relative;  z-index:9; bottom:0'   id='detail-feature-2'
+                                    data-2000-top="display:none;"
+                                    data-500-top="display:block; opacity: 0; bottom: 50px;"
+                                    data-300-top="display:block; bottom: 50px; opacity: 0;"
+                                    data-150-top="display:block; bottom: 20px; opacity: 1; position:fixed; z-index:9;"
+                                    data--300-top="opacity:1;"
+                                    data--350-top="opacity:0; display:none;">
+                           <img src="i/logo-tide.png">
+        </div>
+
+
+        <div id='feature-3-menu' style="position: relative;"
+                                    data-2000-top="display:none;"
+
+                                    data-300-top="display:block; opacity: 0;  top: 40px;"
+                                    data-200-top="display:block; opacity: 1;   top: 70px;"
+                                    data-100-top="display:block;  top: 70px; opacity: 1; position:fixed; z-index:9;"
+                                    data--200-top="opacity:1; top: 60px;"
+                                    data--250-top="opacity:0; display:none;"
+                         >
+                    <img src="i/feature-3-menu.png">
+        </div>
+    </div>
+
+    <div id='footer' style="z-index: 99999;">
+
+            <div id="nav_footer" style="z-index: 99999;">
+            			<ul id="footer_links" style="z-index: 99999;">
+            				<li class="first">
+            					<a href="#">Gift Cards</a>
+            				</li>
+            				<li class="first">
+            					<a href="#">Site Map</a>
+            				</li>
+            				<li>
+            					<a href="#" rel="nofollow">About Edge</a>
+            				</li>
+            				<li>
+            					<a href="#" rel="nofollow">Careers</a>
+            				</li>
+            				<li>
+            					<a href="#" rel="nofollow" target="_blank">Sign Up for Edge Updates</a>
+            				</li>
+            				<li>
+            					<a href="#" rel="nofollow">Customer Care</a>
+            				</li>
+            				<li>
+            					<a href="#">Report Fakes</a>
+            				</li>
+            				<li class="last">
+            					<a href="#" rel="nofollow">Privacy Policy</a>
+            				</li>
+            			</ul>
+            			<p id="copyright_info" style="color: #704533;">
+            				 Copyright ©2013 Edge, Inc. All Rights Reserved
+            			</p>
+            		</div>
+        <div><a href="#" class="edgeBtn" style="margin-right: 1em;">FIND IN STORES</a><a href="#" class="edgeBtn">BUY ONLINE</a></div>
+
+        </div>
+
+
+
+
+
+
+</div>
+</body>
+<script type="text/javascript" src="js/skrollr.min.js"></script>
+<script src="js/demo.js"></script>
+
+<script type="text/javascript">
+	var s = skrollr.init();
+</script>
+
+</html>
+
+
+
+
+
+
